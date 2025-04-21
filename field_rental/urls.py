@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import UserDetailView
+from .views import FieldsListView
 
 urlpatterns = [
-    path('<int:pk>/', UserDetailView.as_view(), name="home"),
+    path('', FieldsListView.as_view(), name="home"),
 ]
