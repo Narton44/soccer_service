@@ -25,6 +25,9 @@ SECRET_KEY = 'django-insecure-@4g6081g6rea#rm(noj8@2tvnb#b69%*w23$k4v2fy=jf7n#2m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 ALLOWED_HOSTS = []
 
 
@@ -48,6 +51,10 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+LOGIN_URL = "/user/login"
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "users:login"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -63,7 +70,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
