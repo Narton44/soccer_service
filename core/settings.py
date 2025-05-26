@@ -53,7 +53,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 LOGIN_URL = "/user/login"
 LOGIN_REDIRECT_URL = "/"
-LOGOUT_REDIRECT_URL = "users:login"
+LOGOUT_REDIRECT_URL = "/user/login"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

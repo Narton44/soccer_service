@@ -7,6 +7,11 @@ class CustomUser(AbstractUser):
     
     objects = UserManager()
 
+    PERMISSIONS = {
+        "user": "user",
+        "manager": "manager",
+    }
+
     email = models.EmailField(
         verbose_name="Email", 
         unique=True
@@ -16,6 +21,13 @@ class CustomUser(AbstractUser):
         max_length=11, 
         unique=True
         )
+    
+    role = models.CharField(
+        verbose_name="Роль пользователя",
+        max_length=7,
+        choices=PERMISSIONS,
+        default="user"  
+    )
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
