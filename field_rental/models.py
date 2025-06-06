@@ -1,4 +1,5 @@
 from django.db import models
+from users.models import CustomUser
 
 class Fields(models.Model):
 
@@ -21,6 +22,12 @@ class Fields(models.Model):
         max_digits = 6,
         decimal_places=2
         )
+    
+    owner = models.ForeignKey(
+        CustomUser,
+        verbose_name="Владелец поля",
+        on_delete=models.PROTECT
+    )
 
 
     def __str__(self):

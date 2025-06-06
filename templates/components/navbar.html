@@ -25,6 +25,9 @@
                     {% if user.is_staff %}
                       <li><a class="dropdown-item" href="{% url 'users:userlist' %}">Список пользователей</a></li>
                     {% endif %}
+                    {% if user.role == "manager" or user.is_staff %}
+                      <li><a class="dropdown-item" href="#">Менеджер полей</a></li>
+                    {% endif %}
 
                     <li><hr class="dropdown-divider"></li>
                     <li>
