@@ -8,6 +8,7 @@ from django.views.generic import (
 
 from .models import Fields
 from .forms import FieldForm
+from .mixins import AccessMixin
 
 
 class FieldsListView(ListView):
@@ -15,8 +16,13 @@ class FieldsListView(ListView):
     context_object_name = "fields"
     template_name = "index.html"
 
+class FieldsDetailView(DetailView):
+    ...
 
-class FieldsCreateView(CreateView):
+
+class FieldsCreateView(AccessMixin, CreateView):
+    allowed_roles = ["manager",]
+
     model = Fields
     template_name = "addfield.html"
     form_class = FieldForm
@@ -27,6 +33,13 @@ class FieldsCreateView(CreateView):
         obj.owner = self.request.user
         return super().form_valid(form)
 
+class FieldsManagerListView(ListView):
+    model = Fields
+    context_object_name = "fields"
+    template_name = "index.html"
+
+    def get_queryset(self):
+        return Fields.objects.filter(owner = self.request.user)
 
 class FieldsUpdateView(UpdateView):
     ...
@@ -36,8 +49,7 @@ class FieldsDeleteView(DeleteView):
     ...
 
 
-class FieldsDetailView(DetailView):
-    ...
+
 
 
 
