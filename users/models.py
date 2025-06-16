@@ -10,6 +10,7 @@ class CustomUser(AbstractUser):
     PERMISSIONS = {
         "user": "user",
         "manager": "manager",
+        "admin": "admin",
     }
 
     email = models.EmailField(

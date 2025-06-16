@@ -5,6 +5,7 @@ from django.views.generic import (
     ListView, 
     UpdateView
 )
+from django.urls import reverse_lazy
 
 from .models import Fields
 from .forms import FieldForm
@@ -21,32 +22,46 @@ class FieldsDetailView(DetailView):
 
 
 class FieldsCreateView(AccessMixin, CreateView):
-    allowed_roles = ["manager",]
+    allowed_roles = ["manager", "admin"]
 
     model = Fields
-    template_name = "addfield.html"
+    template_name = "field_rental/addfield.html"
     form_class = FieldForm
-    success_url = "/"
+    success_url = reverse_lazy("manager")
 
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.owner = self.request.user
         return super().form_valid(form)
 
-class FieldsManagerListView(ListView):
+class FieldsManagerListView(AccessMixin, ListView):
+    allowed_roles = ["manager", "admin"]
+
     model = Fields
     context_object_name = "fields"
-    template_name = "index.html"
+    template_name = "field_rental/manager.html"
 
     def get_queryset(self):
         return Fields.objects.filter(owner = self.request.user)
 
-class FieldsUpdateView(UpdateView):
-    ...
+class FieldsUpdateView(AccessMixin, UpdateView):
+
+    allowed_roles = ["manager", "admin"]
+
+    model = Fields
+    form_class = FieldForm
+    context_object_name = "fields"
+    template_name = "field_rental/updatefield.html"
+    success_url = reverse_lazy("manager")
 
 
-class FieldsDeleteView(DeleteView):
-    ...
+class FieldsDeleteView(AccessMixin, DeleteView):
+    allowed_roles = ["manager", "admin"]
+
+    context_object_name = "fields"
+    model = Fields
+    template_name = "field_rental/deletefield.html"
+    success_url = reverse_lazy("manager")
 
 
 

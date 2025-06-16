@@ -1,8 +1,14 @@
-from django.views.generic import CreateView, ListView
+from django.views.generic import (
+    CreateView, 
+    ListView, 
+    UpdateView, 
+    DeleteView
+)
 from django.shortcuts import redirect
 
 from users.models import CustomUser
 from users.forms import CustomUserForm
+from field_rental.mixins import AccessMixin
 
 class RegisterUser(CreateView):
     model = CustomUser
@@ -11,10 +17,12 @@ class RegisterUser(CreateView):
     success_url = "/"
     template_name = "user/register.html"
 
-class UserListView(ListView):
+class UserListView(AccessMixin, ListView):
     model = CustomUser
     context_object_name = "users"
     template_name = "user/userslist.html"
+
+    allowed_roles = ["admin",]
 
     def get(self, request, *args, **kwargs):
         if self.request.user.is_staff:
@@ -33,3 +41,13 @@ class UserListView(ListView):
     def get_queryset(self, **kwargs):
         queryset = CustomUser.objects.all()
         return queryset
+
+
+class UserUpdateView(AccessMixin, UpdateView):
+    ...
+
+class UserCreateView(AccessMixin, CreateView):
+    ...
+
+class UserDeleteView(AccessMixin, DeleteView):
+    ...
