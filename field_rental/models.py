@@ -7,6 +7,11 @@ class Fields(models.Model):
         ("Резина", "Резина"),
         ("Грунт", "Грунт")
         ]
+    
+    INDOOR_CHOICES = [
+        ("Да", "Да"),
+        ("Нет", "Нет")
+        ]
 
     adress = models.CharField(
         verbose_name = "Адрес",
@@ -15,7 +20,13 @@ class Fields(models.Model):
     cover = models.CharField(
         verbose_name = "Покрытие",
         max_length = 30,
-        choices = COVER_CHOICES    
+        choices = COVER_CHOICES, 
+        )
+    indoor = models.CharField(
+        verbose_name = "Открытое",
+        max_length = 10,
+        choices = INDOOR_CHOICES,
+        null=True   
         )
     price = models.DecimalField(
         verbose_name = "Цена за час",
