@@ -3,25 +3,52 @@ from django import forms
 
 from users.models import CustomUser
 
+# # Класс формы создания обычного пользователя, без права указания ролей.
+# class CustomUserForm(UserCreationForm):
+#    email = forms.EmailField(
+#       label="Email",
+#       max_length=30,
+#       help_text="Используйте только Российские Email",
+#       widget=forms.TextInput(
+#          attrs={
+#             "type": "email", 
+#             "class": "formatted-input"
+#             }
+#       )
+#    )
 
-class CustomUserForm(UserCreationForm):
-   email = forms.EmailField(
-      label="Email",
-      max_length=30,
-      help_text="Используйте только Российские Email",
-      widget=forms.TextInput(
-         attrs={
-            "type": "email", 
-            "class": "formatted-input"
-            }
-      )
-   )
+
+#    class Meta:
+#       model = CustomUser
+#       fields = (
+#          "email",
+#          "username",
+#          "phone_number",
+#       )
+
+# # Класс формы создания пользователей для админа, с правом указания любой роли.
+# class CustomUserCreateForm(UserCreationForm):
+
+#    allowed_roles = ["manager", "admin"]
+
+#    email = forms.EmailField(
+#       label="Email",
+#       max_length=30,
+#       help_text="Используйте только Российские Email",
+#       widget=forms.TextInput(
+#          attrs={
+#             "type": "email", 
+#             "class": "formatted-input"
+#             }
+#       )
+#    )
 
 
-   class Meta:
-      model = CustomUser
-      fields = (
-         "email",
-         "username",
-         "phone_number",
-      )
+#    class Meta:
+#       model = CustomUser
+#       fields = (
+#          "email",
+#          "username",
+#          "phone_number",
+#          "role",
+#       )
