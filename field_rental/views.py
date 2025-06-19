@@ -20,7 +20,6 @@ class FieldsListView(ListView):
 class FieldsDetailView(DetailView):
     ...
 
-
 class FieldsCreateView(AccessMixin, CreateView):
     allowed_roles = ["manager", "admin"]
 
@@ -53,7 +52,6 @@ class FieldsUpdateView(AccessMixin, UpdateView):
     context_object_name = "fields"
     template_name = "field_rental/updatefield.html"
     success_url = reverse_lazy("manager")
-
 
 class FieldsDeleteView(AccessMixin, DeleteView):
     allowed_roles = ["manager", "admin"]

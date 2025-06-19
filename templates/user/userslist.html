@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-  <a class="btn btn-primary" href="#">Добавить пользователя</a>
+  <div class="container">
+  <a class="btn btn-primary" href="{% url 'users:usercreate' %}">Добавить пользователя</a>
   <table class="table table-hover">
       <thead>
     <tr>
@@ -16,8 +16,8 @@
       <tr>
         <th scope="row">{{user.id}}</th>
         <td>{{user.email}}</td>
-        <td><a class="btn btn-primary" href="#">Редактировать</a></td>
-        <td><a class="btn btn-danger" href="#">Удалить</a></td>
+        <td><a class="btn btn-primary" href="{% url 'users:userupdate' user.id %}">Редактировать</a></td>
+        <td><a class="btn btn-danger" href="{% url 'users:userdelete' user.id %}">Удалить</a></td>
       </tr>
     {% endfor %}
   </tbody>
