@@ -28,7 +28,7 @@ urlpatterns = [
          UserUpdateView.as_view(),
          name="userupdate"
          ),
-    path('delete<int:pk>/',
+    path('delete/<int:pk>/',
          UserDeleteView.as_view(),
          name="userdelete"
          ),
