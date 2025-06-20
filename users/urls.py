@@ -5,7 +5,8 @@ from .views import (
     UserListView,
     UserCreateView,
     UserUpdateView,
-    UserDeleteView
+    UserDeleteView,
+    UserResetPasswordView,
     )
 
 app_name = 'users'
@@ -15,7 +16,7 @@ urlpatterns = [
          RegisterUser.as_view(),
          name="register"
          ),
-    path('users/',
+    path('',
          UserListView.as_view(),
          name="userlist"
          ),
@@ -23,7 +24,7 @@ urlpatterns = [
          UserCreateView.as_view(),
          name="usercreate"
          ),
-    path('update<int:pk>/',
+    path('update/<int:pk>/',
          UserUpdateView.as_view(),
          name="userupdate"
          ),
@@ -31,4 +32,8 @@ urlpatterns = [
          UserDeleteView.as_view(),
          name="userdelete"
          ),
+     path('user/reset-password/<int:pk>/',
+          UserResetPasswordView.as_view(),
+          name="useresetpassword"
+          )
 ]
