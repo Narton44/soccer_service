@@ -20,7 +20,7 @@ urlpatterns = [
          UserListView.as_view(),
          name="userlist"
          ),
-    path('create',
+    path('create/',
          UserCreateView.as_view(),
          name="usercreate"
          ),
