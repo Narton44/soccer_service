@@ -40,7 +40,7 @@ class UserCreateView(AccessMixin, CreateView):
 
     model = CustomUser
     template_name = "user/useradd.html"
-    form_class = CustomUserCreateForm
+    form_class = CustomUserForm
     success_url = reverse_lazy("users:userlist")
 
     def form_valid(self, form):

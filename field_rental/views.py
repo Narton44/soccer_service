@@ -39,9 +39,12 @@ class FieldsManagerListView(AccessMixin, ListView):
     model = Fields
     context_object_name = "fields"
     template_name = "field_rental/manager.html"
-
+    
     def get_queryset(self):
-        return Fields.objects.filter(owner = self.request.user)
+        if self.request.user.role == "admin":
+            return Fields.objects.all()
+        else:
+            return Fields.objects.filter(owner = self.request.user)
 
 class FieldsUpdateView(AccessMixin, UpdateView):
 
