@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container">
+  <a class="btn btn-primary" href="{% url 'addfields' %}">Добавить бронь</a>
+  <table class="table table-hover">
+      <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Адрес</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for field in fields %}
+      <tr>
+        <th scope="row">{{field.id}}</th>
+        <td>{{field.adress}}</td>
+        <td><a class="btn btn-primary" href="{% url 'updatefields' field.id %}">Редактировать бронь</a></td>
+        <td><a class="btn btn-danger" href="{% url 'deletefields' field.id %}">Удалить бронь</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+
+  </table>
+</div>
+
+{% endblock %}

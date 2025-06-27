@@ -8,9 +8,13 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 
 from .models import Fields
+from .models import Booking
 from .forms import FieldForm
+from .forms import BookingForm
 from .mixins import AccessMixin
 
+
+# Field views
 
 class FieldsListView(ListView):
     model = Fields
@@ -63,6 +67,44 @@ class FieldsDeleteView(AccessMixin, DeleteView):
     model = Fields
     template_name = "field_rental/deletefield.html"
     success_url = reverse_lazy("manager")
+
+# Booking views
+
+class BookingsCreateView(AccessMixin, CreateView):
+    allowed_roles = ["manager", "admin", "user"]
+
+    model = Booking
+    template_name = "bookingcreate.html"
+    form_class = BookingForm
+    success_url = reverse_lazy("bookings:bookinglist")
+
+class BookingsListView(ListView):
+    model = Booking
+    context_object_name = "bookings"
+    template_name = "bookinglist.html"
+
+class BookingsDetailView(DetailView):
+    model = Booking
+    context_object_name = "bookingdetail"
+    template_name = "bookingdetail.html"
+
+class BookingsUpdateView(AccessMixin, UpdateView):
+
+    allowed_roles = ["manager", "admin"]
+
+    model = Booking
+    form_class = BookingForm
+    context_object_name = "bookingupdate"
+    template_name = "bookingupdate.html"
+    success_url = reverse_lazy("bookings:bookinglist")
+
+class BookingsDeleteView(AccessMixin, DeleteView):
+    allowed_roles = ["manager", "admin"]
+
+    context_object_name = "bookingsdelete"
+    model = Booking
+    template_name = "bookingdelete.html"
+    success_url = reverse_lazy("bookings:bookinglist")
 
 
 
