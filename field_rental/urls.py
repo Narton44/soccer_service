@@ -6,6 +6,7 @@ from .views import (
     FieldsManagerListView,
     FieldsUpdateView,
     FieldsDeleteView,
+    BookingsListView
 )
 
 urlpatterns = [
@@ -33,6 +34,12 @@ urlpatterns = [
         FieldsDeleteView.as_view(), 
         name="deletefields"
         ),
+
+    path(
+        'bookings/<int:pk>/',
+        BookingsListView.as_view(),
+        name="bookings"
+    ),
     
     
 ]

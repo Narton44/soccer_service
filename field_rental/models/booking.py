@@ -4,52 +4,6 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 
-class Fields(models.Model):
-    """Модель футбольного поля"""
-
-    COVER_CHOICES = [
-        ("Резина", "Резина"),
-        ("Грунт", "Грунт")
-        ]
-
-    adress = models.CharField(
-        verbose_name = "Адрес",
-        max_length = 50
-        )
-    
-    cover = models.CharField(
-        verbose_name = "Покрытие",
-        max_length = 30,
-        choices = COVER_CHOICES, 
-        )
-    
-    indoor = models.BooleanField(
-        verbose_name="Открытое",
-        default=True
-        )
-    
-    price = models.DecimalField(
-        verbose_name = "Цена за час",
-        max_digits = 6,
-        decimal_places=2
-        )
-    
-    owner = models.ForeignKey(
-        CustomUser,
-        verbose_name="Владелец поля",
-        on_delete=models.PROTECT
-    )
-
-
-    def __str__(self):
-        return self.adress
-    
-    class Meta:
-        verbose_name = "Поле"
-        verbose_name_plural = "Поля"
-
-
-
 class Booking(models.Model):
     """Модель брони футбольного поля"""
     
@@ -61,7 +15,7 @@ class Booking(models.Model):
     ]
 
     field = models.ForeignKey(
-        Fields,
+        "Fields",
         verbose_name="Футбольное поле",
         on_delete=models.PROTECT,
         related_name="bookings"
