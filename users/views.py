@@ -70,7 +70,6 @@ class UserDeleteView(AccessMixin, DeleteView):
     template_name = "user/userdelete.html"
     success_url = reverse_lazy("users:userlist")
 
-
 class UserResetPasswordView(AccessMixin, UpdateView):
     template_name = 'user/userupdate.html'
     allowed_roles = ["admin",]
