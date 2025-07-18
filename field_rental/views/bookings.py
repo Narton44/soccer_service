@@ -1,3 +1,4 @@
+from django.shortcuts import redirect
 from django.views.generic import (
     DetailView, 
     DeleteView, 
@@ -30,29 +31,44 @@ class BookingsListView(ListView):
     model = Booking
     context_object_name = "bookings"
     template_name = "bookings/bookinglist.html"
+    
+    # Переписать добавленние брони сделать систему уведомлений!
+    def post(self, request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return redirect('login')  # или другая страница
+
+            date = request.POST.get('date')
+            start_time = request.POST.get('start')
+            duration = request.POST.get('duration')
+
+            if not all([date, start_time, duration]):
+                return redirect('bookings', self.kwargs["pk"])  # имя URL вашей формы
+
+            try:
+                # Создаем запись бронирования
+                booking = Booking.objects.create(
+                    field = Fields.objects.get(pk = self.kwargs["pk"]),
+                    user=request.user,
+                    start_time=date,
+                    end_time=start_time + int(duration),
+                    
+                )
+                return redirect('bookings', self.kwargs["pk"])  # перенаправляем на список бронирований
+            except Exception as e:
+                return redirect('bookings', self.kwargs["pk"])
 
     def get_queryset(self):
-        today_start = timezone.now().replace(
-            hour=0, minute=0, second=0, microsecond=0
-        )
-        today_end = today_start + timedelta(days=7)
-        
-        queryset =  Booking.objects.filter(field__pk = self.kwargs["pk"])
 
-        return queryset.filter(created_at__range=(today_start, today_end))
+        return Booking.objects.filter(field__pk = self.kwargs["pk"])
     
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['field'] = Fields.objects.get(pk = self.kwargs["pk"])
 
-        date_lable = []
-        i = 0
-        for date in range(7):
-            date_lable.append(str(datetime.today() + timedelta(i))[:11])
-            i += 1
+        date_now = timezone.now()
         
-        context['label_data'] = date_lable
+        context['date_now'] = date_now
         return context
 
 class BookingsDetailView(DetailView):

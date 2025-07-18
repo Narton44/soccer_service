@@ -1,24 +1,67 @@
 {% extends "base.html" %}
 {% block content %}
   <div class="container">
-    <h1>Поле по улице {{field}}</h1>
-  <a class="btn btn-primary" href="#">Добавить бронь</a>
-  <table class="table table-hover">
-  <thead>
-    <tr>
-      {% for data in label_data %}
-        <th scope="col">{{data}}</th>
-      {% endfor %}
-    </tr>
-  </thead>
+    <h1>Поле по улице {{field}} </h1>
 
-  <tbody>
+
+
+    <form name="booking" method="POST">
+      {% csrf_token %}
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label for="date" class="form-label">Дата</label>
+        <input type="date" class="form-control" id="date" required>
+      </div>
+      <div class="col-md-4">
+        <label for="time" class="form-label">Время начала</label>
+                <select class="form-select" id="start" required>
+          <option value="">Выберите...</option>
+          <option value="9:00">9:00</option>
+          <option value="10:00">10:00</option>
+          <option value="11:00">11:00</option>
+          <option value="12:00">12:00</option>
+          <option value="13:00">13:00</option>
+          <option value="14:00">14:00</option>
+          <option value="15:00">15:00</option>
+          <option value="16:00">16:00</option>
+          <option value="17:00">17:00</option>
+          <option value="18:00">18:00</option>
+          <option value="19:00">19:00</option>
+          <option value="20:00">20:00</option>
+          <option value="21:00">21:00</option>
+          <option value="22:00">22:00</option>
+          <option value="23:00">23:00</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label for="duration" class="form-label">Длительность (часы)</label>
+        <select class="form-select" id="duration" required>
+          <option value="">Выберите...</option>
+          <option value="1">1 час</option>
+          <option value="2">2 часа</option>
+          <option value="3">3 часа</option>
+          <option value="4">4 часа</option>
+        </select>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Забронировать</button>
+  </form>
+
+  <!-- Занятые слоты (пример, заменить данными с backend) -->
+  <div class="mt-5">
+    <h4>Занятое время</h4>
+    <ul class="list-group" id="occupiedSlots">
       {% for booking in bookings %}
-        {{booking}}
+        {% if booking.start_time > date_now %}
+          <li class="list-group-item list-group-item-primary">{{booking.start_time}} — {{booking.end_time|date:"H:i"}}</li>
+        {% endif %}
       {% endfor %}
-  </tbody>
+    </ul>
+  </div>
+</div>
 
-  </table>
+
 </div>
   
   
