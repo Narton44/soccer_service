@@ -34,31 +34,39 @@ class BookingsListView(ListView):
     
     # Переписать добавленние брони сделать систему уведомлений!
     def post(self, request, *args, **kwargs):
-            if not request.user.is_authenticated:
-                return redirect('login')  # или другая страница
+        if not request.user.is_authenticated:
+            return redirect('login')
 
-            date = request.POST.get('date')
-            start_time = request.POST.get('start')
-            duration = request.POST.get('duration')
+        date = request.POST.get('date')
+        start_time_str = request.POST.get('start')
+        duration = request.POST.get('duration')
 
-            if not all([date, start_time, duration]):
-                return redirect('bookings', self.kwargs["pk"])  # имя URL вашей формы
+        try:
+            # Преобразуем строку времени в объект времени
+            start_time = datetime.strptime(start_time_str, "%H:%M").time()
+            
+            # Преобразуем в datetime для удобного добавления часов
+            start_datetime = datetime.combine(datetime.today(), start_time)
+            
+            # Добавляем продолжительность
+            end_datetime = start_datetime + timedelta(hours=int(duration))
+            end_time = end_datetime.time()
 
-            try:
-                # Создаем запись бронирования
-                booking = Booking.objects.create(
-                    field = Fields.objects.get(pk = self.kwargs["pk"]),
-                    user=request.user,
-                    start_time=date,
-                    end_time=start_time + int(duration),
-                    
-                )
-                return redirect('bookings', self.kwargs["pk"])  # перенаправляем на список бронирований
-            except Exception as e:
-                return redirect('bookings', self.kwargs["pk"])
+            # Создаем запись бронирования
+            booking = Booking.objects.create(
+                field=Fields.objects.get(pk=self.kwargs["pk"]),
+                user=request.user,
+                date=date,
+                start_time=start_time,
+                end_time=end_time,
+            )
+            
+            return redirect('bookings', self.kwargs["pk"])
+        except Exception as e:
+            print(f"Ошибка: {e}")
+            return redirect('bookings', self.kwargs["pk"])
 
     def get_queryset(self):
-
         return Booking.objects.filter(field__pk = self.kwargs["pk"])
     
 
