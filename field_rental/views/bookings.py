@@ -23,7 +23,7 @@ class BookingsCreateView(AccessMixin, CreateView):
     allowed_roles = ["manager", "admin", "user"]
 
     model = Booking
-    template_name = "bookingcreate.html"
+    template_name = "bookings/bookingcreate.html"
     form_class = BookingForm
     success_url = reverse_lazy("bookings:bookinglist")
 
@@ -82,7 +82,7 @@ class BookingsListView(ListView):
 class BookingsDetailView(DetailView):
     model = Booking
     context_object_name = "bookingdetail"
-    template_name = "bookingdetail.html"
+    template_name = "bookings/bookingdetail.html"
 
 class BookingsUpdateView(AccessMixin, UpdateView):
 
@@ -91,7 +91,7 @@ class BookingsUpdateView(AccessMixin, UpdateView):
     model = Booking
     form_class = BookingForm
     context_object_name = "bookingupdate"
-    template_name = "bookingupdate.html"
+    template_name = "bookings/bookingupdate.html"
     success_url = reverse_lazy("bookings:bookinglist")
 
 class BookingsDeleteView(AccessMixin, DeleteView):
@@ -99,5 +99,14 @@ class BookingsDeleteView(AccessMixin, DeleteView):
 
     context_object_name = "bookingsdelete"
     model = Booking
-    template_name = "bookingdelete.html"
+    template_name = "bookings/bookingdelete.html"
     success_url = reverse_lazy("bookings:bookinglist")
+
+class UserBookingListView(ListView):
+
+    model = Booking
+    template_name = 'bookings/bookinguserlist.html'
+    context_object_name = "bookings"
+
+    def get_queryset(self):
+        return Booking.objects.filter(user = self.request.user)
