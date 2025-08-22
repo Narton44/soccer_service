@@ -54,7 +54,13 @@
     <ul class="list-group" id="occupiedSlots">
       {% for booking in bookings %}
         
-          <li class="list-group-item list-group-item-primary">{{booking.date}} — {{booking.start_time}} — {{booking.end_time|date:"H:i"}} — {{booking.status}}</li>
+          <li class="list-group-item list-group-item"><span class="badge bg-secondary">{{booking.date}} — {{booking.start_time}} — {{booking.end_time|date:"H:i"}} — </span>
+            {% if booking.status == 'pending' %}
+              <span class="badge bg-warning text-dark">В ожидании подтверждения</span>
+            {% elif booking.status == 'confirmed'%}
+              <span class="badge bg-success">Подтверждено</span>
+            {% endif %}
+          </li>
 
       {% endfor %}
     </ul>
