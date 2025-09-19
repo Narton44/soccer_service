@@ -11,7 +11,8 @@ from .bookings import (
 #     # BookingsDetailView,
 #     # BookingsDeleteView,
       BookingsListView,
-      UserBookingListView
+      UserBookingListView,
+      UserBookingConfirmManagerView,
 )
 
 
@@ -26,5 +27,6 @@ __all__ = (
     # "BookingsDetailView",
     # "BookingsDeleteView",
     "BookingsListView",
-    "UserBookingListView"
+    "UserBookingListView",
+    "UserBookingConfirmManagerView",
 )

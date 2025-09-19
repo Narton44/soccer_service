@@ -67,3 +67,9 @@ class PasswordResetForm(forms.ModelForm):
         if cleaned_data.get('new_password') != cleaned_data.get('confirm_password'):
             raise forms.ValidationError("Пароли не совпадают")
         return cleaned_data
+    
+class CustomUserSettingsForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ["email", "first_name", "last_name", "username", "phone_number",]
+        exclude = ['password',]

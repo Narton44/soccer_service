@@ -183,3 +183,28 @@ class UserBookingListView(ListView):
 
     def get_queryset(self):
         return Booking.objects.filter(user = self.request.user)
+    
+
+class UserBookingConfirmManagerView(ListView):
+    model = Booking
+    template_name = 'bookings/bookingconfirmlist.html'
+    context_object_name = "bookings"
+    allowed_roles = ["manager", "admin"]
+
+    def get_queryset(self):
+        return Booking.objects.filter(
+            field__owner=self.request.user,
+            status__in=["pending", "confirmed", "completed"]
+    ).order_by('-date', '-start_time')
+
+    def post(self, request, *args, **kwargs):
+        if request.POST.get("type") == "confirm":
+            id = request.POST.get("id")
+            booking = Booking.objects.filter(id=id)
+            booking.update(status="confirmed")
+            return redirect('userbookingsconfirm')
+        elif request.POST.get("type") == "cancel":
+            id = request.POST.get("id")
+            booking = Booking.objects.filter(id=id)
+            booking.update(status="canceled")
+            return redirect('userbookingsconfirm')

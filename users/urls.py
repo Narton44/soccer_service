@@ -7,6 +7,8 @@ from .views import (
     UserUpdateView,
     UserDeleteView,
     UserResetPasswordView,
+    UserUpdateSettingsView,
+    confirm_email
     )
 
 app_name = 'users'
@@ -35,5 +37,15 @@ urlpatterns = [
      path('user/reset-password/<int:pk>/',
           UserResetPasswordView.as_view(),
           name="useresetpassword"
-          )
+          ),
+     path(
+         'settings/<int:pk>/',
+          UserUpdateSettingsView.as_view(),
+          name='settingsuser'
+     ),
+     path(
+         'confirm_email/<uidb64>/<token>/',
+         confirm_email, 
+         name="confirm_email"
+     )
 ]

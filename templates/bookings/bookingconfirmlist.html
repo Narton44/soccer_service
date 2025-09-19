@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="mt-5">
+        <h4>Мои брони</h4>
+ <ul class="list-group" id="occupiedSlots">
+      {% for booking in bookings %}
+        
+          <li class="list-group-item list-group-item">
+            <span class="badge bg-info text-dark">
+              № {{booking.id}}
+            </span> 
+            <span class="badge bg-secondary">
+              {{booking.date}} — {{booking.start_time}} — {{booking.end_time|date:"H:i"}}
+
+            </span>
+            {% if booking.status == 'pending' %}
+              <span class="badge bg-warning text-dark">В ожидании подтверждения</span>
+            {% elif booking.status == 'confirmed'%}
+              <span class="badge bg-success">Подтверждено</span>
+            {% endif %}
+            {% if booking.status != 'confirmed'%}
+            <form method="POST" action="">
+              {% csrf_token %}
+              <input name="id" value="{{booking.id}}" type="hidden">
+              <input name="type" value="confirm" type="hidden">
+              <button type="submit" class="btn btn-success btn-sm">Подтвердить</button>
+            </form>
+            <form method="POST" action="">
+              {% csrf_token %}
+              <input name="id" value="{{booking.id}}" type="hidden">
+              <input name="type" value="cancel" type="hidden">
+              <button type="submit" class="btn btn-danger btn-sm">Отменить</button>
+            </form>
+            {% endif %}
+
+          </li>
+
+      {% endfor %}
+    </ul>
+    </div>
+</div>
+
+{% endblock %}

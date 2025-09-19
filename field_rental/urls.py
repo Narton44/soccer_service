@@ -7,14 +7,15 @@ from .views import (
     FieldsUpdateView,
     FieldsDeleteView,
     BookingsListView,
-    UserBookingListView
+    UserBookingListView,
+    UserBookingConfirmManagerView,
 )
 
 urlpatterns = [
     path('', 
          FieldsListView.as_view(), 
          name="home"
-         ),
+        ),
     path(
         'manager/fields/add/', 
         FieldsCreateView.as_view(), 
@@ -35,17 +36,19 @@ urlpatterns = [
         FieldsDeleteView.as_view(), 
         name="deletefields"
         ),
-
     path(
         'bookings/<int:pk>/',
         BookingsListView.as_view(),
         name="bookings"
     ),
-        path(
+    path(
         'bookings/',
         UserBookingListView.as_view(),
         name="userbookings"
     ),
-    
-    
+    path(
+        'bookings/confirm',
+        UserBookingConfirmManagerView.as_view(),
+        name="userbookingsconfirm"
+    ),
 ]
