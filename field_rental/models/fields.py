@@ -14,6 +14,19 @@ class Fields(models.Model):
         max_length = 50
         )
     
+    img = models.ImageField(
+        verbose_name = "Картинка поля",
+        upload_to="img/",
+        blank=True,
+        null=True
+    )
+    
+    description = models.TextField(
+        verbose_name="Описание поля",
+        blank=True,
+        null=True
+    )
+
     cover = models.CharField(
         verbose_name = "Покрытие",
         max_length = 30,

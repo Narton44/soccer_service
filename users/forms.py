@@ -27,7 +27,7 @@ class CustomUserForm(UserCreationForm):
       )
 
 # Класс формы создания пользователей для админа, с правом указания любой роли.
-class CustomUserCreateForm(forms.ModelForm):
+class CustomUserCreateForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

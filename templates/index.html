@@ -1,16 +1,17 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
   {% for field in fields %}
       <div class="container">
         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
           <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+            <img class="bd-placeholder-img" width="200" height="250" src="media/{{field.img}}"/>
           </div>
           <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary-emphasis">{{ field.cover }}</strong>
             <h3 class="mb-0">{{ field.adress }}</h3>
+            <strong class="d-inline-block mb-2 text-primary-emphasis">{{ field.cover }}</strong>
             <div class="mb-1 text-body-secondary">Время работы: 00:00</div>
-            <p class="card-text mb-auto">Описание</p>
+            <p class="card-text mb-auto">{{field.description}}</p>
             <a href="{% url 'bookings' field.id %}" class="btn btn-primary g-col-3 " style="width: 150px;">
               Забронировать
             </a>
