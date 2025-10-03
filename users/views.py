@@ -16,6 +16,10 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.template.loader import render_to_string
 from django.conf import settings
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 from users.models import CustomUser
 from users.forms import (
@@ -174,6 +178,20 @@ class UserUpdateSettingsView(AccessMixin, UpdateView):
             raise PermissionDenied("У вас нет доступа!")
         
         return obj
-
-
+    
+@login_required
+def change_password_view(request):
+    """смена пароля из пользовательских настроек"""
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, "Ваш пароль успешно обновлён")
+            return redirect("settingsuser", request.user.id)
+        else:
+            messages.error(request, "Пожалуйста, исправьте ошибки ниже.")
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'user/changepassword.html', {"form":form})
 
