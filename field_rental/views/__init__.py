@@ -15,6 +15,8 @@ from .bookings import (
       UserBookingConfirmManagerView,
 )
 
+from .search import SearchView
+
 
 __all__ = (
     "FieldsCreateView",
@@ -29,4 +31,5 @@ __all__ = (
     "BookingsListView",
     "UserBookingListView",
     "UserBookingConfirmManagerView",
+    "SearchView",
 )

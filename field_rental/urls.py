@@ -9,6 +9,7 @@ from .views import (
     BookingsListView,
     UserBookingListView,
     UserBookingConfirmManagerView,
+    SearchView
 )
 
 urlpatterns = [
@@ -16,6 +17,12 @@ urlpatterns = [
          FieldsListView.as_view(), 
          name="home"
         ),
+    
+    path('search/', 
+         SearchView.as_view(), 
+         name="search"
+        ),
+    
     path(
         'manager/fields/add/', 
         FieldsCreateView.as_view(), 
