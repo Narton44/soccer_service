@@ -1,13 +1,27 @@
 from django.db import models
 from users.models import CustomUser
 
+
+class Cover(models.Model):
+    name = models.CharField(
+        verbose_name="Название покрытия",
+        max_length=50
+    )
+    slug = models.SlugField(
+        verbose_name="Сылка",
+        unique=True
+    )
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Покрытие"
+        verbose_name_plural = "Покрытия"
+
+
 class Fields(models.Model):
     """Модель футбольного поля"""
-
-    COVER_CHOICES = [
-        ("Резина", "Резина"),
-        ("Грунт", "Грунт")
-        ]
 
     adress = models.CharField(
         verbose_name = "Адрес",
@@ -27,11 +41,11 @@ class Fields(models.Model):
         null=True
     )
 
-    cover = models.CharField(
-        verbose_name = "Покрытие",
-        max_length = 30,
-        choices = COVER_CHOICES, 
-        )
+    cover = models.ForeignKey(
+        Cover,
+        on_delete=models.PROTECT,
+        verbose_name="Покрытие"
+    )
     
     indoor = models.BooleanField(
         verbose_name="Открытое",
@@ -57,3 +71,4 @@ class Fields(models.Model):
     class Meta:
         verbose_name = "Поле"
         verbose_name_plural = "Поля"
+

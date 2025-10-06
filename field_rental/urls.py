@@ -6,6 +6,7 @@ from .views import (
     FieldsManagerListView,
     FieldsUpdateView,
     FieldsDeleteView,
+    FieldsCategoryListView,
     BookingsListView,
     UserBookingListView,
     UserBookingConfirmManagerView,
@@ -17,10 +18,15 @@ urlpatterns = [
          FieldsListView.as_view(), 
          name="home"
         ),
-    
+
     path('search/', 
          SearchView.as_view(), 
          name="search"
+        ),
+
+    path('<str:slug>/', 
+         FieldsCategoryListView.as_view(), 
+         name="category"
         ),
     
     path(

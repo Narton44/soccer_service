@@ -84,3 +84,13 @@ class FieldsDeleteView(AccessMixin, DeleteView):
     model = Fields
     template_name = "field_rental/deletefield.html"
     success_url = reverse_lazy("manager")
+
+
+class FieldsCategoryListView(ListView):
+    model = Fields
+    context_object_name = "fields"
+    template_name = "index.html"
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        return Fields.objects.filter(cover__slug=slug)

@@ -3,7 +3,8 @@ from .fields import (
     FieldsListView,
     FieldsUpdateView,
     FieldsDeleteView,
-    FieldsManagerListView
+    FieldsManagerListView,
+    FieldsCategoryListView
 )
 from .bookings import (
 #     # BookingsCreateView,
@@ -24,6 +25,7 @@ __all__ = (
     "FieldsUpdateView",
     "FieldsDeleteView",
     "FieldsManagerListView",
+    "FieldsCategoryListView",
     # "BookingsCreateView",
     # "BookingsUpdateView",
     # "BookingsDetailView",
