@@ -9,8 +9,9 @@
           </div>
           <div class="col p-4 d-flex flex-column position-static">
             <h3 class="mb-0">Адрес: {{ field.adress }}</h3>
-            <strong class="d-inline-block mb-2 text-primary-emphasis">Покрытие: {{ field.cover }}</strong>
-            <div class="mb-1 text-body-secondary">Время работы: 00:00</div>
+            <strong class="d-inline-block mb-2 text-primary-emphasis">Телефон для справок: {{ field.phone_number }}</strong>
+            <div class="d-inline-block mb-2 text-primary-emphasis">Покрытие: {{ field.cover }}</div>
+            <div class="mb-1 text-body-secondary">Время работы: {{ field.opening_hours }}</div>
             <p class="card-text mb-auto">О нас: {{field.description}}</p>
             <a href="{% url 'bookings' field.id %}" class="btn btn-primary g-col-3 " style="width: 150px;">
               Забронировать

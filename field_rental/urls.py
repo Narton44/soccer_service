@@ -7,6 +7,7 @@ from .views import (
     FieldsUpdateView,
     FieldsDeleteView,
     FieldsCategoryListView,
+    FieldsSignCategoryListView,
     BookingsListView,
     UserBookingListView,
     UserBookingConfirmManagerView,
@@ -23,12 +24,16 @@ urlpatterns = [
          SearchView.as_view(), 
          name="search"
         ),
-
     path('<str:slug>/', 
          FieldsCategoryListView.as_view(), 
          name="category"
         ),
-    
+
+        path('<str:slug>/', 
+         FieldsSignCategoryListView.as_view(), 
+         name="signcategory"
+        ),
+
     path(
         'manager/fields/add/', 
         FieldsCreateView.as_view(), 

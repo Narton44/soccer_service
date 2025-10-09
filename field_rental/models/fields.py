@@ -19,6 +19,22 @@ class Cover(models.Model):
         verbose_name = "Покрытие"
         verbose_name_plural = "Покрытия"
 
+class IndoorSign(models.Model):
+    name = models.CharField(
+        verbose_name="Признак крытое/нет",
+        max_length=10,
+        default='unknown'
+    )
+    slug = models.SlugField(
+        verbose_name="Сылка/крыт",
+        unique=True
+    )
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Признак крытое/нет"
 
 class Fields(models.Model):
     """Модель футбольного поля"""
@@ -26,6 +42,18 @@ class Fields(models.Model):
     adress = models.CharField(
         verbose_name = "Адрес",
         max_length = 50
+        )
+    
+    phone_number = models.CharField(
+        verbose_name = "телефон",
+        max_length = 12,
+        default=None
+        )
+    
+    opening_hours = models.CharField(
+        verbose_name = "время работы",
+        max_length = 12,
+        default=None
         )
     
     img = models.ImageField(
@@ -46,12 +74,13 @@ class Fields(models.Model):
         on_delete=models.PROTECT,
         verbose_name="Покрытие"
     )
-    
-    indoor = models.BooleanField(
-        verbose_name="Открытое",
-        default=True
-        )
-    
+
+    indoorsign = models.ForeignKey(
+        IndoorSign,
+        on_delete=models.PROTECT,
+        verbose_name="Признак крытое/нет"
+    )
+        
     price = models.DecimalField(
         verbose_name = "Цена за час",
         max_digits = 6,

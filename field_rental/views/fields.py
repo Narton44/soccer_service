@@ -94,3 +94,12 @@ class FieldsCategoryListView(ListView):
     def get_queryset(self):
         slug = self.kwargs['slug']
         return Fields.objects.filter(cover__slug=slug)
+    
+class FieldsSignCategoryListView(ListView):
+    model = Fields
+    context_object_name = "signfields"
+    template_name = "index.html"
+
+    def get_queryset(self):
+        slug = self.kwargs['slug']
+        return Fields.objects.filter(indoorsign__slug=slug)

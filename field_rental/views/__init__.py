@@ -4,7 +4,8 @@ from .fields import (
     FieldsUpdateView,
     FieldsDeleteView,
     FieldsManagerListView,
-    FieldsCategoryListView
+    FieldsCategoryListView,
+    FieldsSignCategoryListView
 )
 from .bookings import (
 #     # BookingsCreateView,
