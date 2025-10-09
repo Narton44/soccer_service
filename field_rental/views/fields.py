@@ -92,8 +92,8 @@ class FieldsCategoryListView(ListView):
     template_name = "index.html"
 
     def get_queryset(self):
-        slug = self.kwargs['slug']
-        return Fields.objects.filter(cover__slug=slug)
+        # slug = self.kwargs['slug']
+        return Fields.objects.filter(cover__slug=self.kwargs['slug'])
     
 class FieldsSignCategoryListView(ListView):
     model = Fields

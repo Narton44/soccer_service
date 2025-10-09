@@ -80,7 +80,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'field_rental.context_processors.category_field' # Добавили свой контекст процессор
+                'field_rental.context_processors.category_field', # Добавили свой контекст процессор
+                'field_rental.context_processors.category_sign_field' # Добавили свой контекст процессор
             ],
         },
     },
