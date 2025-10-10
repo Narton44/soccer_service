@@ -35,6 +35,7 @@ class IndoorSign(models.Model):
     
     class Meta:
         verbose_name = "Признак крытое/нет"
+        verbose_name_plural = "Признак крытое/нет"
 
 class Fields(models.Model):
     """Модель футбольного поля"""
@@ -78,7 +79,7 @@ class Fields(models.Model):
     indoorsign = models.ForeignKey(
         IndoorSign,
         on_delete=models.PROTECT,
-        verbose_name="Признак крытое/нет"
+        verbose_name="Крытое/нет"
     )
         
     price = models.DecimalField(

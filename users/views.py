@@ -26,7 +26,8 @@ from users.forms import (
     CustomUserForm, 
     CustomUserCreateForm, 
     PasswordResetForm,
-    CustomUserSettingsForm
+    CustomUserSettingsForm,
+    CustomUserUpdateForm
 )
 
 from field_rental.mixins import AccessMixin
@@ -135,7 +136,7 @@ class UserUpdateView(AccessMixin, UpdateView):
     allowed_roles = ["manager", "admin"]
 
     model = CustomUser
-    form_class = CustomUserCreateForm
+    form_class = CustomUserUpdateForm
     context_object_name = "userupdate"
     template_name = "user/userupdate.html"
     success_url = reverse_lazy("users:userlist")
@@ -188,7 +189,7 @@ def change_password_view(request):
             user = form.save()
             update_session_auth_hash(request, user)
             messages.success(request, "Ваш пароль успешно обновлён")
-            return redirect("settingsuser", request.user.id)
+            return redirect("home")
         else:
             messages.error(request, "Пожалуйста, исправьте ошибки ниже.")
     else:

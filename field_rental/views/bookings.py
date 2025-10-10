@@ -197,6 +197,18 @@ class UserBookingConfirmManagerView(ListView):
             status__in=["pending", "confirmed", "completed"]
     ).order_by('-date', '-start_time')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bookings = Booking.objects.filter(status="confirmed")
+        hour = 0
+        for booking in bookings:
+            print(booking.start_time)
+            # Реализовать данный код
+        # Достать стоймость
+        # Математика
+        context["confirmed"] = Booking.objects.filter(status="confirmed")
+        return context
+
     def post(self, request, *args, **kwargs):
         if request.POST.get("type") == "confirm":
             id = request.POST.get("id")

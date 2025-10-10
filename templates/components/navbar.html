@@ -13,7 +13,7 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% for category in categories %}
-                <li><a class="dropdown-item" href="/{{category.slug}}">{{category.name}}</a></li>
+                <li><a class="dropdown-item" href="/cover/{{category.slug}}">{{category.name}}</a></li>
               {% endfor %}
             </ul>
           </li>
@@ -23,7 +23,7 @@
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% for category in signcategories %}
-              <li><a class="dropdown-item" href="/{{category.slug}}">{{category.name}}</a></li>
+              <li><a class="dropdown-item" href="/sign/{{category.slug}}">{{category.name}}</a></li>
             {% endfor %}
           </ul>
           </li>

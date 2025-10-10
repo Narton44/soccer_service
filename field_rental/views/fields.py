@@ -97,9 +97,12 @@ class FieldsCategoryListView(ListView):
     
 class FieldsSignCategoryListView(ListView):
     model = Fields
-    context_object_name = "signfields"
+    context_object_name = "fields"
     template_name = "index.html"
 
     def get_queryset(self):
         slug = self.kwargs['slug']
         return Fields.objects.filter(indoorsign__slug=slug)
+    
+    def get_context_data(self, **kwargs):
+        return super().get_context_data(**kwargs)

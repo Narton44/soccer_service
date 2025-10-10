@@ -1,8 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+
+{% for conf in confirmed %}
+  {{conf.start_time}}
+{% endfor %}
 <div class="container">
     <div class="mt-5">
-        <h4>Мои брони</h4>
+        <h4>Список бронированей</h4>
  <ul class="list-group" id="occupiedSlots">
       {% for booking in bookings %}
         

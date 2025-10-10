@@ -73,3 +73,9 @@ class CustomUserSettingsForm(forms.ModelForm):
         model = CustomUser
         fields = ["email", "first_name", "last_name", "username", "phone_number",]
         exclude = ['password',]
+
+class CustomUserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ["role", "email", "first_name", "last_name", "username", "phone_number",]
+        exclude = ['password',]

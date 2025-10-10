@@ -24,12 +24,12 @@ urlpatterns = [
          SearchView.as_view(), 
          name="search"
         ),
-    path('<str:slug>/', 
+    path('cover/<str:slug>/', 
          FieldsCategoryListView.as_view(), 
          name="category"
         ),
 
-        path('<str:slug>/', 
+    path('sign/<str:slug>/', 
          FieldsSignCategoryListView.as_view(), 
          name="signcategory"
         ),
