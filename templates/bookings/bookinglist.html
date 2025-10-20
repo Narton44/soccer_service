@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+{% load static %}
 {% block content %}
   <div class="container">
     <h1>Поле по улице {{field}} </h1>
     <p><b>Телефон для подтверждения брони:</b> {{ field.phone_number }}</p>
 
-
+    <video controls>
+      <source src="{% static 'stream/skate.m3u8' %}" type="application/x-mpegURL">
+    </video>
 
     <form name="booking" method="POST">
     {% csrf_token %}
